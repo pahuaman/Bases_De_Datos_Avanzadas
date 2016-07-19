@@ -1,0 +1,27 @@
+CREATE TRIGGER insertaAlumno AFTER INSERT
+ON alumno
+FOR EACH ROW
+INSERT INTO (matricula,tutor,especialidad,categoria,fecha_nac,
+             edad,telefono,correo,nombre,curp)
+VALUES(NEW.matricula,NEW.tutor,NEW.especialidad,NEW.categoria,
+       NEW.fecha_nac,NEW.edad,NEW.telefono,NEW.correo,NEW.nombre,
+       NEW.curp);
+
+CREATE TRIGGER modificarProfesor BEFORE UPDATE
+ON maestro
+FOR EACH ROW
+UPDATE(matricula,sueldo,antiguedad,materia,fecha_nac,
+             edad,telefono,correo,nombre,curp)
+VALUES(OLD.matricula,OLD.sueldo,OLD.antiguedad,OLD.materia,
+       OLD.fecha_nac,OLD.edad,OLD.telefono,OLD.correo,OLD.nombre,
+       OLD.curp);
+
+CREATE TRIGGER borrarAlumno BEFORE DELETE
+ON alumno
+FOR EACH ROW
+DELETE (matricula,tutor,especialidad,categoria,fecha_nac,
+             edad,telefono,correo,nombre,curp)
+VALUES(OLD.matricula,OLD.tutor,OLD.especialidad,OLD.categoria,
+       OLD.fecha_nac,OLD.edad,OLD.telefono,OLD.correo,OLD.nombre,
+       OLD.curp);
+WHERE matricula=OLD.matricula;
